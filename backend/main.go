@@ -4,12 +4,18 @@ import (
 	"audio-converter/backend/config"
 	"audio-converter/backend/models"
 	"audio-converter/backend/routes"
+	"log"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 	config.ConnectDB()
 	config.DB.AutoMigrate(&models.AudioFile{})
 
